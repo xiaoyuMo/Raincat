@@ -86,10 +86,10 @@ public class TxCompensationServiceImpl implements TxCompensationService {
     public void start(final TxConfig txConfig) throws Exception {
         this.txConfig = txConfig;
         if (txConfig.getCompensation()) {
+            //执行定时补偿
             final String modelName = rpcApplicationService.findModelName();
             transactionRecoverRepository = SpringBeanUtils.getInstance().getBean(TransactionRecoverRepository.class);
             transactionRecoverRepository.init(modelName, txConfig);
-            //执行定时补偿
             compensate();
         }
     }
